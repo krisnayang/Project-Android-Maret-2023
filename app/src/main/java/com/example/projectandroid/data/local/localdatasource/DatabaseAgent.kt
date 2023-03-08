@@ -4,14 +4,15 @@ import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.projectandroid.data.remote.api.CharacterResponse
-import com.example.projectandroid.data.remote.api.abilities
+import com.example.projectandroid.data.local.model.Agent
+import com.example.projectandroid.data.local.model.abilities
 
 @Entity
 data class DatabaseAgent (
     @PrimaryKey val uuid: String,
     @NonNull @ColumnInfo(name = "display_name") val displayName: String,
     @NonNull @ColumnInfo(name = "description") val description: String,
+    @NonNull @ColumnInfo(name = "display_icon") val displayIcon: String,
     @NonNull @ColumnInfo(name = "ability_name") val abilityName: String,
     @ColumnInfo(name = "ability_icon") val abilityIcon: String,
     @NonNull @ColumnInfo(name = "ability_name2") val abilityName2: String,
@@ -22,12 +23,13 @@ data class DatabaseAgent (
     @ColumnInfo(name = "ability_icon4") val abilityIcon4: String,
         )
 
-fun List<DatabaseAgent>.asDomainModel(): List<CharacterResponse> {
+fun List<DatabaseAgent>.asDomainModel(): List<Agent> {
     return map {
-        CharacterResponse(
+        Agent(
             uuid = it.uuid,
             displayName = it.displayName,
             description = it.description,
+            displayIcon = it.displayIcon,
             listOf(abilities(it.abilityName, it.abilityIcon)),
         )
     }

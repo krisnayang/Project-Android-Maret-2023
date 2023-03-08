@@ -1,8 +1,8 @@
 package com.example.projectandroid.data.remote.remotedatasource
 
 import com.example.projectandroid.data.local.localdatasource.DatabaseAgent
-import com.example.projectandroid.data.remote.api.CharacterResponse
-import com.example.projectandroid.data.remote.api.abilities
+import com.example.projectandroid.data.remote.model.Agent
+import com.example.projectandroid.data.remote.model.abilities
 import com.squareup.moshi.JsonClass
 
 
@@ -17,14 +17,16 @@ data class NetworkAgent (
     val uuid: String,
     val displayName: String,
     val description: String,
+    val displayIcon: String,
     val abilities: List<abilities>
 )
 
-fun CharactersResponse.asDomainModel(): List<CharacterResponse> {
+fun CharactersResponse.asDomainModel(): List<Agent> {
     return data.map {
-        CharacterResponse(
+        Agent(
             uuid = it.uuid,
             displayName = it.displayName,
+            displayIcon = it.displayIcon,
             description = it.description,
             abilities = it.abilities
         )
@@ -37,6 +39,7 @@ fun CharactersResponse.asDatabaseModel(): List<DatabaseAgent> {
             uuid = it.uuid,
             displayName = it.displayName,
             description = it.description,
+            displayIcon = it.displayIcon,
             abilityName = it.abilities[0].displayName,
             abilityIcon = it.abilities[0].displayIcon!!,
             abilityName2 = it.abilities[1].displayName,
