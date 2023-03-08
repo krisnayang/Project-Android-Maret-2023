@@ -2,8 +2,6 @@ package com.example.projectandroid.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.projectandroid.data.local.dao.ValorantDao
-import com.example.projectandroid.data.local.localdatasource.DatabaseAgent
 import com.example.projectandroid.data.local.localdatasource.ValorantDatabase
 import com.example.projectandroid.data.repository.AgentRepository
 import com.example.projectandroid.data.repository.AgentRepositoryImpl
@@ -13,11 +11,11 @@ import java.io.IOException
 class AgentViewModel (
     application: Application
 ): AndroidViewModel(application){
-    private val agentRepository = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
+    private val agentRepositoryImpl = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
     init {
         viewModelScope.launch{
             try {
-                agentRepository.refreshAgent()
+                agentRepositoryImpl.refreshAgent()
 
             } catch (networkError: IOException) {
 

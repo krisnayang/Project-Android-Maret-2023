@@ -1,6 +1,5 @@
 package com.example.projectandroid.data.repository
 
-
-interface AgentRepository{
+interface AgentRepository {
     suspend fun refreshAgent()
 }

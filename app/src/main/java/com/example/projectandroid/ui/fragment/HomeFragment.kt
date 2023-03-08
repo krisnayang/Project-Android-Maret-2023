@@ -23,8 +23,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        ViewModelProvider(this, AgentViewModel.AgentViewModelFactory(activity.application))
-            .get(AgentViewModel::class.java)
+        ViewModelProvider(this, AgentViewModel.AgentViewModelFactory(activity.application))[AgentViewModel::class.java]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +36,13 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             container,
             false)
 
-        binding.setLifecycleOwner(viewLifecycleOwner)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
-            layoutManager = LinearLayoutManager(context)
+//        binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
+//            layoutManager = LinearLayoutManager(context)
 //            adapter = AgentListAdapter()
-        }
+//        }
         return binding.root
     }
 

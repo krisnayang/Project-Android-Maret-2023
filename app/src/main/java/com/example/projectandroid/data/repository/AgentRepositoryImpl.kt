@@ -10,8 +10,8 @@ import com.example.projectandroid.data.remote.remotedatasource.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AgentRepositoryImpl(private val database: ValorantDatabase): AgentRepository {
 
+class AgentRepositoryImpl(private val database: ValorantDatabase):AgentRepository {
     override suspend fun refreshAgent(){
         withContext(Dispatchers.IO){
             val agent = Api.retrofitService.getAgents()

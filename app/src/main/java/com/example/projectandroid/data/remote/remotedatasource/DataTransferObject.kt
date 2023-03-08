@@ -31,9 +31,6 @@ fun CharactersResponse.asDomainModel(): List<CharacterResponse> {
     }
 }
 
-/**
- * Convert Network results to database objects
- */
 fun CharactersResponse.asDatabaseModel(): List<DatabaseAgent> {
     return data.map {
         DatabaseAgent(
