@@ -31,11 +31,9 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.agent.observe(viewLifecycleOwner, Observer<List<Agent>> { agents ->
-            agents?.apply {
-                viewModelAdapter?.agents = agents
-            }
-        })
+        viewModel.agents.observe(this.viewLifecycleOwner){
+            viewModelAdapter?.submitList(it)
+        }
     }
 
     override fun onCreateView(

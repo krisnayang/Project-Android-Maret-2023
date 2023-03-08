@@ -13,7 +13,7 @@ class AgentViewModel (
 ): AndroidViewModel(application){
     private val agentRepositoryImpl = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
 
-    val agent = agentRepositoryImpl.agents
+    val agents = agentRepositoryImpl.agents
     init {
         viewModelScope.launch{
             try {

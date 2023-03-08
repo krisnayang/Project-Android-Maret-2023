@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projectandroid.R
@@ -14,13 +16,19 @@ import kotlinx.coroutines.withContext
 
 class AgentListAdapter(
 
-): RecyclerView.Adapter<AgentListAdapter.AgentViewHolder>() {
+): ListAdapter<Agent, AgentListAdapter.AgentViewHolder>(DiffCallback) {
     private lateinit var context: Context
-    var agents: List<Agent> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
+
+    companion object DiffCallback: DiffUtil.ItemCallback<Agent>() {
+        override fun areItemsTheSame(oldItem: Agent, newItem: Agent): Boolean {
+            return oldItem.uuid == newItem.uuid
         }
+
+        override fun areContentsTheSame(oldItem: Agent, newItem: Agent): Boolean {
+            return oldItem == newItem
+        }
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgentViewHolder {
         val withDataBinding: ListItemAgentBinding = DataBindingUtil.inflate(
@@ -32,13 +40,13 @@ class AgentListAdapter(
         return AgentViewHolder(withDataBinding)
     }
 
-    override fun getItemCount()= agents.size
-
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
-        holder.viewDataBinding.also {
-            it.agent = agents[position]
-            Glide.with(context).load(agents[position].displayIcon).into(holder.viewDataBinding.agentIcon)
+        val agent = getItem(position)
+        holder.itemView.setOnClickListener{
+//            clicklistener(agent)
         }
+        Glide.with(context).load(agent.displayIcon).into(holder.viewDataBinding.agentIcon)
+        holder.bind(agent)
     }
 
     class AgentViewHolder(val viewDataBinding: ListItemAgentBinding):
@@ -46,6 +54,10 @@ class AgentListAdapter(
         companion object {
             @LayoutRes
             val LAYOUT = R.layout.list_item_agent
+        }
+        fun bind(agent: Agent){
+            viewDataBinding.agent = agent
+            viewDataBinding.executePendingBindings()
         }
     }
 
