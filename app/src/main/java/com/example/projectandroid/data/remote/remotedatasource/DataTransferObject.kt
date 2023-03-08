@@ -40,8 +40,14 @@ fun CharactersResponse.asDatabaseModel(): List<DatabaseAgent> {
             uuid = it.uuid,
             displayName = it.displayName,
             description = it.description,
-            abilityName = it.abilities.get(3).displayName,
-            abilityIcon = it.abilities.get(3).displayIcon!!,
+            abilityName = it.abilities[0].displayName,
+            abilityIcon = it.abilities[0].displayIcon!!,
+            abilityName2 = it.abilities[1].displayName,
+            abilityIcon2 = it.abilities[1].displayIcon!!,
+            abilityName3 = it.abilities[2].displayName,
+            abilityIcon3 = it.abilities[2].displayIcon!!,
+            abilityName4 = it.abilities[3].displayName,
+            abilityIcon4 = it.abilities[3].displayIcon!!,
         )
     }
 }

@@ -14,6 +14,12 @@ data class DatabaseAgent (
     @NonNull @ColumnInfo(name = "description") val description: String,
     @NonNull @ColumnInfo(name = "ability_name") val abilityName: String,
     @ColumnInfo(name = "ability_icon") val abilityIcon: String,
+    @NonNull @ColumnInfo(name = "ability_name2") val abilityName2: String,
+    @ColumnInfo(name = "ability_icon2") val abilityIcon2: String,
+    @NonNull @ColumnInfo(name = "ability_name3") val abilityName3: String,
+    @ColumnInfo(name = "ability_icon3") val abilityIcon3: String,
+    @NonNull @ColumnInfo(name = "ability_name4") val abilityName4: String,
+    @ColumnInfo(name = "ability_icon4") val abilityIcon4: String,
         )
 
 fun List<DatabaseAgent>.asDomainModel(): List<CharacterResponse> {

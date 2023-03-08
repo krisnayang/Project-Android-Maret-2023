@@ -6,13 +6,14 @@ import com.example.projectandroid.data.local.dao.ValorantDao
 import com.example.projectandroid.data.local.localdatasource.DatabaseAgent
 import com.example.projectandroid.data.local.localdatasource.ValorantDatabase
 import com.example.projectandroid.data.repository.AgentRepository
+import com.example.projectandroid.data.repository.AgentRepositoryImpl
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 class AgentViewModel (
     application: Application
 ): AndroidViewModel(application){
-    private val agentRepository = AgentRepository(ValorantDatabase.getDatabase(application))
+    private val agentRepository = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
     init {
         viewModelScope.launch{
             try {
