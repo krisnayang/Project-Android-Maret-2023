@@ -1,6 +1,6 @@
 package com.example.projectandroid.data.remote.remotedatasource
 
-import com.example.projectandroid.data.local.localdatasource.DatabaseAgent
+import com.example.projectandroid.data.local.localdatasource.AgentEntity
 import com.example.projectandroid.data.remote.model.Agent
 import com.example.projectandroid.data.remote.model.abilities
 import com.squareup.moshi.JsonClass
@@ -33,9 +33,9 @@ fun CharactersResponse.asDomainModel(): List<Agent> {
     }
 }
 
-fun CharactersResponse.asDatabaseModel(): List<DatabaseAgent> {
+fun CharactersResponse.asDatabaseModel(): List<AgentEntity> {
     return data.map {
-        DatabaseAgent(
+        AgentEntity(
             uuid = it.uuid,
             displayName = it.displayName,
             description = it.description,

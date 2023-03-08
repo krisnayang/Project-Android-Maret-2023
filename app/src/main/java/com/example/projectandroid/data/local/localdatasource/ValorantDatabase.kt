@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.projectandroid.data.local.dao.ValorantDao
 
-@Database(entities = [DatabaseAgent::class], version = 1, exportSchema = false)
+@Database(entities = [AgentEntity::class], version = 1, exportSchema = false)
 abstract class ValorantDatabase: RoomDatabase() {
     abstract val valorantDao: ValorantDao
 

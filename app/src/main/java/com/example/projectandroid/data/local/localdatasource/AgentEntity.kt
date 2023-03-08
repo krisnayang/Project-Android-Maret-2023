@@ -8,7 +8,7 @@ import com.example.projectandroid.data.local.model.Agent
 import com.example.projectandroid.data.local.model.abilities
 
 @Entity
-data class DatabaseAgent (
+data class AgentEntity (
     @PrimaryKey val uuid: String,
     @NonNull @ColumnInfo(name = "display_name") val displayName: String,
     @NonNull @ColumnInfo(name = "description") val description: String,
@@ -23,7 +23,7 @@ data class DatabaseAgent (
     @ColumnInfo(name = "ability_icon4") val abilityIcon4: String,
         )
 
-fun List<DatabaseAgent>.asDomainModel(): List<Agent> {
+fun List<AgentEntity>.asDomainModel(): List<Agent> {
     return map {
         Agent(
             uuid = it.uuid,

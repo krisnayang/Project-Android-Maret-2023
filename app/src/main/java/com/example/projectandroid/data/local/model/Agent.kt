@@ -1,6 +1,5 @@
 package com.example.projectandroid.data.local.model
 
-
 data class Agent (
     val uuid: String,
     val displayName: String,

@@ -1,47 +1,52 @@
 package com.example.projectandroid.ui.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projectandroid.data.local.localdatasource.DatabaseAgent
+import com.bumptech.glide.Glide
+import com.example.projectandroid.R
+import com.example.projectandroid.data.local.model.Agent
 import com.example.projectandroid.databinding.ListItemAgentBinding
+import kotlinx.coroutines.withContext
 
 class AgentListAdapter(
-    private val clicklistener: (DatabaseAgent) -> Unit
-): ListAdapter<DatabaseAgent, AgentListAdapter.AgentViewHolder>(DiffCallback) {
-    class AgentViewHolder(
-        private var binding: ListItemAgentBinding
-    ): RecyclerView.ViewHolder(binding.root){
-        fun bind(agent: DatabaseAgent){
-            binding.agent = agent
-            binding.executePendingBindings()
-        }
-    }
 
-    companion object DiffCallback: DiffUtil.ItemCallback<DatabaseAgent>() {
-        override fun areItemsTheSame(oldItem: DatabaseAgent, newItem: DatabaseAgent): Boolean {
-            return oldItem.uuid == newItem.uuid
+): RecyclerView.Adapter<AgentListAdapter.AgentViewHolder>() {
+    private lateinit var context: Context
+    var agents: List<Agent> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
         }
 
-        override fun areContentsTheSame(oldItem: DatabaseAgent, newItem: DatabaseAgent): Boolean {
-            return oldItem == newItem
-        }
-
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgentViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return AgentViewHolder(
-            ListItemAgentBinding.inflate(layoutInflater, parent, false)
-        )
+        val withDataBinding: ListItemAgentBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            AgentViewHolder.LAYOUT,
+            parent,
+            false)
+        context = parent.context
+        return AgentViewHolder(withDataBinding)
     }
+
+    override fun getItemCount()= agents.size
 
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
-        val agent = getItem(position)
-        holder.itemView.setOnClickListener{
-            clicklistener(agent)
+        holder.viewDataBinding.also {
+            it.agent = agents[position]
+            Glide.with(context).load(agents[position].displayIcon).into(holder.viewDataBinding.agentIcon)
         }
-        holder.bind(agent)
     }
+
+    class AgentViewHolder(val viewDataBinding: ListItemAgentBinding):
+        RecyclerView.ViewHolder(viewDataBinding.root) {
+        companion object {
+            @LayoutRes
+            val LAYOUT = R.layout.list_item_agent
+        }
+    }
+
 }

@@ -7,24 +7,32 @@
     <data>
         <variable
             name="agent"
-            type="com.example.projectandroid.data.local.localdatasource.DatabaseAgent" />
+            type="com.example.projectandroid.data.local.model.Agent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
+        android:layout_margin="20dp"
+        android:padding="8dp"
+        android:background="#E1DEDE">
 
+        <ImageView
+            android:id="@+id/agentIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/agentName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{agent.displayName}"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/agentIcon"
+            app:layout_constraintStart_toEndOf="@id/agentIcon"
             tools:text="Name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

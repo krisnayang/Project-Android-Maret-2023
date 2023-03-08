@@ -12,6 +12,8 @@ class AgentViewModel (
     application: Application
 ): AndroidViewModel(application){
     private val agentRepositoryImpl = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
+
+    val agent = agentRepositoryImpl.agents
     init {
         viewModelScope.launch{
             try {
