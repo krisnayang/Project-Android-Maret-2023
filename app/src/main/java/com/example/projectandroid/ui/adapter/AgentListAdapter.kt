@@ -16,7 +16,9 @@ import com.bumptech.glide.Glide
 import com.example.projectandroid.R
 import com.example.projectandroid.data.local.model.Agent
 import com.example.projectandroid.databinding.ListItemAgentBinding
+import com.facebook.shimmer.ShimmerFrameLayout
 import kotlinx.coroutines.withContext
+import java.util.logging.Handler
 
 class AgentListAdapter(
     private val clickListener: (Agent, View) -> Unit
@@ -45,9 +47,9 @@ class AgentListAdapter(
 
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
         val agent = getItem(position)
+
         holder.itemView.setOnClickListener{
             clickListener(agent, it)
-
         }
         Glide.with(context).load(agent.displayIcon).into(holder.viewDataBinding.agentIcon)
         holder.bind(agent)

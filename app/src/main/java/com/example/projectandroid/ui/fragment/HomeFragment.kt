@@ -1,9 +1,12 @@
 package com.example.projectandroid.ui.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,7 +31,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         ViewModelProvider(this, AgentViewModel.AgentViewModelFactory(activity.application))[AgentViewModel::class.java]
     }
     private var viewModelAdapter: AgentListAdapter? = null
-
+    var size: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +44,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        getCurrentActivity()?.getBottomNav()?.visibility = View.VISIBLE
+//        getBottomNav()?.visibility = View.VISIBLE
 
         val binding: FragmentHomeBinding = DataBindingUtil.inflate(
             inflater,
@@ -68,6 +71,16 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             viewModel.getAgents()
             swipeContainer.isRefreshing = false
         }
+
+        binding.shimmerContainer.startShimmer()
+        binding.recyclerView.visibility = View.GONE
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.shimmerContainer.stopShimmer()
+            binding.shimmerContainer.visibility = View.GONE
+            binding.recyclerView.visibility = View.VISIBLE
+        },1000)
+
+
         return binding.root
     }
 
