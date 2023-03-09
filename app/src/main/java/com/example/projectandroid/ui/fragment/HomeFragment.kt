@@ -35,7 +35,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.agents.observe(this.viewLifecycleOwner){
+        viewModel.getAgents().observe(this.viewLifecycleOwner){
             viewModelAdapter?.submitList(it)
         }
     }
@@ -68,7 +68,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             adapter = viewModelAdapter
         }
         binding.swipeContainer.setOnRefreshListener {
-            viewModel.getAgents()
+            viewModel.refreshAgent()
             swipeContainer.isRefreshing = false
         }
 

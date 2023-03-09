@@ -1,16 +1,11 @@
 package com.example.projectandroid.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import com.example.projectandroid.data.local.localdatasource.AgentEntity
+import androidx.lifecycle.asLiveData
 import com.example.projectandroid.data.local.localdatasource.ValorantDatabase
-import com.example.projectandroid.data.local.localdatasource.asDomainModel
-import com.example.projectandroid.data.local.model.Agent
 import com.example.projectandroid.data.remote.api.Api
 import com.example.projectandroid.data.remote.remotedatasource.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
 
 class AgentRepositoryImpl(private val database: ValorantDatabase):AgentRepository {
     override suspend fun refreshAgent(){
@@ -20,11 +15,6 @@ class AgentRepositoryImpl(private val database: ValorantDatabase):AgentRepositor
         }
     }
 
-    val agents: LiveData<List<Agent>> = Transformations.map(database.valorantDao.getAgents()){
-        it.asDomainModel()
-    }
-
-    fun agent(id: String): LiveData<AgentEntity> = Transformations.map(database.valorantDao.getAgent(id)){
-        it
-    }
+    fun getAgents() = database.valorantDao.getAgents().asLiveData()
+    fun getAgent(id: String) = database.valorantDao.getAgent(id)
 }

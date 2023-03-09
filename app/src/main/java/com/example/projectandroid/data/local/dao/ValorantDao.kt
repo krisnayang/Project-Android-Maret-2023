@@ -6,16 +6,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.projectandroid.data.local.localdatasource.AgentEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ValorantDao {
     //Belum Flow
     @Query("SELECT * FROM agententity")
-    fun getAgents(): LiveData<List<AgentEntity>>
+    fun getAgents(): Flow<List<AgentEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll( agents: List<AgentEntity>)
 
     @Query("SELECT * FROM agententity WHERE uuid = :id")
-    fun getAgent(id: String): LiveData<AgentEntity>
+    fun getAgent(id: String): Flow<AgentEntity>
 }

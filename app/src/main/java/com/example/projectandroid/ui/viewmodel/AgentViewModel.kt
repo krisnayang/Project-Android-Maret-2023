@@ -2,10 +2,13 @@ package com.example.projectandroid.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.projectandroid.data.local.localdatasource.AgentEntity
 import com.example.projectandroid.data.local.localdatasource.ValorantDatabase
+import com.example.projectandroid.data.local.localdatasource.asDomainModel
 import com.example.projectandroid.data.local.model.Agent
 import com.example.projectandroid.data.repository.AgentRepository
 import com.example.projectandroid.data.repository.AgentRepositoryImpl
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -14,9 +17,12 @@ class AgentViewModel (
 ): AndroidViewModel(application){
     private val agentRepositoryImpl = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
 
-    val agents = agentRepositoryImpl.agents
+    private val agents: LiveData<List<AgentEntity>> = agentRepositoryImpl.getAgents()
+    fun getAgents(): LiveData<List<Agent>> = Transformations.map(agents){
+        it.asDomainModel()
+    }
 
-    fun getAgents() = viewModelScope.launch { agentRepositoryImpl.refreshAgent() }
+    fun refreshAgent() = viewModelScope.launch { agentRepositoryImpl.refreshAgent() }
     init {
         viewModelScope.launch{
             try {
