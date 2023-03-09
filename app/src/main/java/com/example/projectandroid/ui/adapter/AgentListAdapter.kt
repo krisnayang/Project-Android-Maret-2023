@@ -1,10 +1,13 @@
 package com.example.projectandroid.ui.adapter
 
 import android.content.Context
+import android.transition.Fade
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -43,6 +46,7 @@ class AgentListAdapter(
         val agent = getItem(position)
         holder.itemView.setOnClickListener{
             clickListener(agent)
+//            val extra = FragmentNavigatorExtras(holder.viewDataBinding.agentIcon to "big_icon")
         }
         Glide.with(context).load(agent.displayIcon).into(holder.viewDataBinding.agentIcon)
         holder.bind(agent)

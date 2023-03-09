@@ -1,6 +1,7 @@
 package com.example.projectandroid.ui.fragment
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,10 @@ class AgentDetailFragment: Fragment(R.layout.fragment_agent_detail) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val animation = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = animation
+        sharedElementReturnTransition = animation
+
         _binding = FragmentAgentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,8 +54,19 @@ class AgentDetailFragment: Fragment(R.layout.fragment_agent_detail) {
 
     private fun bindForageable() {
         binding.apply {
-            context?.let { Glide.with(it).load(agent.displayIcon).into(imageAgent) }
+            context?.let {
+                Glide.with(it).load(agent.displayIcon).into(imageAgent)
+                Glide.with(it).load(agent.abilityIcon).into(abilityIcon1)
+                Glide.with(it).load(agent.abilityIcon2).into(abilityIcon2)
+                Glide.with(it).load(agent.abilityIcon3).into(abilityIcon3)
+                Glide.with(it).load(agent.abilityIcon4).into(abilityIcon4)
+            }
             agentName.text = agent.displayName
+            agentDesc.text = agent.description
+            abilityName1.text = agent.abilityName
+            abilityName2.text = agent.abilityName2
+            abilityName3.text = agent.abilityName3
+            abilityName4.text = agent.abilityName4
         }
     }
 }

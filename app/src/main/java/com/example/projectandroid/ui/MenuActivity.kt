@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.projectandroid.R
 import com.example.projectandroid.databinding.ActivityMenuBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
@@ -20,4 +21,6 @@ class MenuActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(menuNavHostFragment.findNavController())
     }
+
+    fun getBottomNav(): BottomNavigationView = binding.bottomNavigationView
 }
