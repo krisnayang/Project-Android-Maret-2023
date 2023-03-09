@@ -2,6 +2,7 @@ package com.example.projectandroid.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.example.projectandroid.data.local.localdatasource.AgentEntity
 import com.example.projectandroid.data.local.localdatasource.ValorantDatabase
 import com.example.projectandroid.data.local.localdatasource.asDomainModel
 import com.example.projectandroid.data.local.model.Agent
@@ -21,5 +22,9 @@ class AgentRepositoryImpl(private val database: ValorantDatabase):AgentRepositor
 
     val agents: LiveData<List<Agent>> = Transformations.map(database.valorantDao.getAgents()){
         it.asDomainModel()
+    }
+
+    fun agent(id: String): LiveData<AgentEntity> = Transformations.map(database.valorantDao.getAgent(id)){
+        it
     }
 }

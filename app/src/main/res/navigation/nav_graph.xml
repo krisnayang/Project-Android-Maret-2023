@@ -25,5 +25,9 @@
         android:id="@+id/agentDetailFragment"
         android:name="com.example.projectandroid.ui.fragment.AgentDetailFragment"
         android:label="fragment_agent_detail"
-        tools:layout="@layout/fragment_agent_detail" />
+        tools:layout="@layout/fragment_agent_detail">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

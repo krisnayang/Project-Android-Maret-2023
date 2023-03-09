@@ -3,6 +3,7 @@ package com.example.projectandroid.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.projectandroid.data.local.localdatasource.ValorantDatabase
+import com.example.projectandroid.data.local.model.Agent
 import com.example.projectandroid.data.repository.AgentRepository
 import com.example.projectandroid.data.repository.AgentRepositoryImpl
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ class AgentViewModel (
     private val agentRepositoryImpl = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
 
     val agents = agentRepositoryImpl.agents
+    fun retrieveAgent(id: String) = agentRepositoryImpl.agent(id)
     init {
         viewModelScope.launch{
             try {

@@ -1,15 +1,13 @@
 package com.example.projectandroid.ui.fragment
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectandroid.R
@@ -50,7 +48,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModelAdapter = AgentListAdapter()
+        viewModelAdapter = AgentListAdapter{agent->
+            val action = HomeFragmentDirections
+                .actionHomeFragmentToAgentDetailFragment(agent.uuid)
+            findNavController().navigate(action)
+        }
         binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewModelAdapter
@@ -58,7 +60,4 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         return binding.root
     }
 
-    class AgentClick(val block: (Agent) -> Unit) {
-        fun onClick(video: Agent) = block(video)
-    }
 }

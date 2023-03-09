@@ -15,7 +15,7 @@ import com.example.projectandroid.databinding.ListItemAgentBinding
 import kotlinx.coroutines.withContext
 
 class AgentListAdapter(
-
+    private val clickListener: (Agent) -> Unit
 ): ListAdapter<Agent, AgentListAdapter.AgentViewHolder>(DiffCallback) {
     private lateinit var context: Context
 
@@ -27,7 +27,6 @@ class AgentListAdapter(
         override fun areContentsTheSame(oldItem: Agent, newItem: Agent): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgentViewHolder {
@@ -43,7 +42,7 @@ class AgentListAdapter(
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
         val agent = getItem(position)
         holder.itemView.setOnClickListener{
-//            clicklistener(agent)
+            clickListener(agent)
         }
         Glide.with(context).load(agent.displayIcon).into(holder.viewDataBinding.agentIcon)
         holder.bind(agent)

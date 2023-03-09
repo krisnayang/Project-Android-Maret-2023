@@ -15,4 +15,7 @@ interface ValorantDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll( agents: List<AgentEntity>)
+
+    @Query("SELECT * FROM agententity WHERE uuid = :id")
+    fun getAgent(id: String): LiveData<AgentEntity>
 }
