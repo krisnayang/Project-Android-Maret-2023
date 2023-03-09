@@ -15,7 +15,8 @@ class AgentViewModel (
     private val agentRepositoryImpl = AgentRepositoryImpl(ValorantDatabase.getDatabase(application))
 
     val agents = agentRepositoryImpl.agents
-    fun retrieveAgent(id: String) = agentRepositoryImpl.agent(id)
+
+    fun getAgents() = viewModelScope.launch { agentRepositoryImpl.refreshAgent() }
     init {
         viewModelScope.launch{
             try {

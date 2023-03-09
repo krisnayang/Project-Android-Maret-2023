@@ -1,6 +1,7 @@
 package com.example.projectandroid.ui.fragment
 
 import android.os.Bundle
+import android.transition.Fade
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -11,18 +12,18 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.projectandroid.R
 import com.example.projectandroid.data.local.localdatasource.AgentEntity
-import com.example.projectandroid.data.local.model.Agent
 import com.example.projectandroid.databinding.FragmentAgentDetailBinding
-import com.example.projectandroid.ui.viewmodel.AgentViewModel
+import com.example.projectandroid.ui.viewmodel.DetailViewModel
+import kotlinx.android.synthetic.main.fragment_agent_detail.*
 
 class AgentDetailFragment: Fragment(R.layout.fragment_agent_detail) {
     private val navigationArgs: AgentDetailFragmentArgs by navArgs()
 
-    private val viewModel: AgentViewModel by lazy {
+    private val viewModel: DetailViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        ViewModelProvider(this, AgentViewModel.AgentViewModelFactory(activity.application))[AgentViewModel::class.java]
+        ViewModelProvider(this, DetailViewModel.Factory(activity.application))[DetailViewModel::class.java]
     }
 
     private lateinit var agent: AgentEntity

@@ -16,6 +16,8 @@ import com.example.projectandroid.databinding.FragmentHomeBinding
 import com.example.projectandroid.ui.MenuActivity
 import com.example.projectandroid.ui.adapter.AgentListAdapter
 import com.example.projectandroid.ui.viewmodel.AgentViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.list_item_agent.view.*
 
 class HomeFragment: Fragment(R.layout.fragment_home) {
 
@@ -50,9 +52,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        viewModelAdapter = AgentListAdapter{agent ->
+        viewModelAdapter = AgentListAdapter{agent, view ->
             getCurrentActivity()?.getBottomNav()?.visibility = View.GONE
-            val extra = FragmentNavigatorExtras(binding.recyclerView to "big_icon")
+            //kalo pakai binding.recyclerView bisa
+            val extra = FragmentNavigatorExtras(view.agentIcon to "big_icon")
             val action = HomeFragmentDirections
                 .actionHomeFragmentToAgentDetailFragment(agent.uuid)
             findNavController().navigate(action, extra)
@@ -60,6 +63,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewModelAdapter
+        }
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.getAgents()
+            swipeContainer.isRefreshing = false
         }
         return binding.root
     }

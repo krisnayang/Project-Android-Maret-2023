@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -18,7 +19,7 @@ import com.example.projectandroid.databinding.ListItemAgentBinding
 import kotlinx.coroutines.withContext
 
 class AgentListAdapter(
-    private val clickListener: (Agent) -> Unit
+    private val clickListener: (Agent, View) -> Unit
 ): ListAdapter<Agent, AgentListAdapter.AgentViewHolder>(DiffCallback) {
     private lateinit var context: Context
 
@@ -45,8 +46,8 @@ class AgentListAdapter(
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
         val agent = getItem(position)
         holder.itemView.setOnClickListener{
-            clickListener(agent)
-//            val extra = FragmentNavigatorExtras(holder.viewDataBinding.agentIcon to "big_icon")
+            clickListener(agent, it)
+
         }
         Glide.with(context).load(agent.displayIcon).into(holder.viewDataBinding.agentIcon)
         holder.bind(agent)
