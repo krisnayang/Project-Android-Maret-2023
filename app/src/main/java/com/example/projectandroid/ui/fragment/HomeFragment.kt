@@ -44,7 +44,6 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        getCurrentActivity()?.getBottomNav()?.visibility = View.VISIBLE
 
         val binding: FragmentHomeBinding = DataBindingUtil.inflate(
             inflater,
@@ -55,9 +54,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+//        getCurrentActivity()?.getBottomNav()?.visibility = View.VISIBLE
+
         viewModelAdapter = AgentListAdapter{agent, view ->
             getCurrentActivity()?.getBottomNav()?.visibility = View.GONE
-            //kalo pakai binding.recyclerView bisa
             val extra = FragmentNavigatorExtras(view.agentIcon to "big_icon")
             val action = HomeFragmentDirections
                 .actionHomeFragmentToAgentDetailFragment(agent.uuid)
