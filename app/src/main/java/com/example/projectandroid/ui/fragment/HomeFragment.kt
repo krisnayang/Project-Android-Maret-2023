@@ -31,7 +31,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         ViewModelProvider(this, AgentViewModel.AgentViewModelFactory(activity.application))[AgentViewModel::class.java]
     }
     private var viewModelAdapter: AgentListAdapter? = null
-    var size: Int = 0
+    private var size: Int = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +44,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        getBottomNav()?.visibility = View.VISIBLE
+//        getCurrentActivity()?.getBottomNav()?.visibility = View.VISIBLE
 
         val binding: FragmentHomeBinding = DataBindingUtil.inflate(
             inflater,
@@ -79,7 +79,6 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             binding.shimmerContainer.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
         },1000)
-
 
         return binding.root
     }

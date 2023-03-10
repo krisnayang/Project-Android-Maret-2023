@@ -13,6 +13,8 @@ data class AgentEntity (
     @NonNull @ColumnInfo(name = "display_name") val displayName: String,
     @NonNull @ColumnInfo(name = "description") val description: String,
     @NonNull @ColumnInfo(name = "display_icon") val displayIcon: String,
+    @ColumnInfo(name = "background") val background: String,
+    @ColumnInfo(name = "fullPortrait") val fullPortrait: String,
     @NonNull @ColumnInfo(name = "ability_name") val abilityName: String,
     @ColumnInfo(name = "ability_icon") val abilityIcon: String,
     @NonNull @ColumnInfo(name = "ability_name2") val abilityName2: String,
@@ -30,6 +32,8 @@ fun List<AgentEntity>.asDomainModel(): List<Agent> {
             displayName = it.displayName,
             description = it.description,
             displayIcon = it.displayIcon,
+            background = it.background,
+            fullPortrait = it.fullPortrait,
             listOf(abilities(it.abilityName, it.abilityIcon)),
         )
     }

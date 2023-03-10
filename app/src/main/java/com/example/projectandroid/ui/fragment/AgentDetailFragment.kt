@@ -36,7 +36,7 @@ class AgentDetailFragment: Fragment(R.layout.fragment_agent_detail) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val animation = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+        val animation = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.slide_bottom)
         sharedElementEnterTransition = animation
         sharedElementReturnTransition = animation
 
@@ -56,7 +56,9 @@ class AgentDetailFragment: Fragment(R.layout.fragment_agent_detail) {
     private fun bindForageable() {
         binding.apply {
             context?.let {
-                Glide.with(it).load(agent.displayIcon).into(imageAgent)
+                Glide.with(it).load(agent.displayIcon).into(agentIcon)
+                Glide.with(it).load(agent.fullPortrait).into(portraitAgent)
+                Glide.with(it).load(agent.background).into(backgroundImage)
                 Glide.with(it).load(agent.abilityIcon).into(abilityIcon1)
                 Glide.with(it).load(agent.abilityIcon2).into(abilityIcon2)
                 Glide.with(it).load(agent.abilityIcon3).into(abilityIcon3)

@@ -22,16 +22,16 @@ class AgentViewModel (
         it.asDomainModel()
     }
 
-    fun refreshAgent() = viewModelScope.launch { agentRepositoryImpl.refreshAgent() }
-    init {
-        viewModelScope.launch{
-            try {
-                agentRepositoryImpl.refreshAgent()
+    fun refreshAgent() = viewModelScope.launch {
+        try {
+            agentRepositoryImpl.refreshAgent()
 
-            } catch (networkError: IOException) {
+        } catch (networkError: IOException) {
 
-            }
         }
+    }
+    init {
+        refreshAgent()
     }
 
     class AgentViewModelFactory(
